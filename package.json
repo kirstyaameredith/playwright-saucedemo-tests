@@ -1,0 +1,18 @@
+{
+  "name": "playwright-starter",
+  "version": "1.0.0",
+  "description": "Beginner Playwright project for learning automation",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "codegen": "npx playwright codegen",
+    "test:smoke": "npx playwright test --grep \"@smoke\"",
+    "test:regression": "npx playwright test --grep \"@regression\"",
+   "test:ci": "npx playwright test --reporter=line"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "allure-playwright": "^3.4.3"
+  }
+  
+}
