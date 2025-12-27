@@ -8,11 +8,14 @@
     "codegen": "npx playwright codegen",
     "test:smoke": "npx playwright test --grep \"@smoke\"",
     "test:regression": "npx playwright test --grep \"@regression\"",
-   "test:ci": "npx playwright test --reporter=line"
-  },
+    "test:ci": "npx playwright test --reporter=line",
+    "allure:generate": "allure generate allure-results --clean",
+    "allure:open": "allure open allure-report",
+    "allure:report": "npm run allure:generate && npm run allure:open"
+},
   "devDependencies": {
     "@playwright/test": "^1.49.0",
+    "allure-commandline": "^2.36.0",
     "allure-playwright": "^3.4.3"
   }
-  
 }
