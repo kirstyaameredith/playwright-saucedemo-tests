@@ -24,6 +24,27 @@ jobs:
       - name: Run smoke tests
         run: npx playwright test --grep @smoke
 
+      # Generate Allure HTML report for smoke
+      - name: Generate Allure Report (Smoke)
+        if: always()
+        run: npx allure generate allure-results --clean -o allure-report-smoke
+
+      # Upload raw Allure results (optional but useful)
+      - name: Upload Allure Results (Smoke)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results-smoke
+          path: allure-results
+
+      # Upload HTML Allure report
+      - name: Upload Allure Report (Smoke)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report-smoke
+          path: allure-report-smoke
+
   regression:
     name: Regression Tests
     runs-on: ubuntu-latest
@@ -41,3 +62,24 @@ jobs:
 
       - name: Run regression tests
         run: npx playwright test --grep @regression
+
+      # Generate Allure HTML report for regression
+      - name: Generate Allure Report (Regression)
+        if: always()
+        run: npx allure generate allure-results --clean -o allure-report-regression
+
+      # Upload raw Allure results (optional but useful)
+      - name: Upload Allure Results (Regression)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results-regression
+          path: allure-results
+
+      # Upload HTML Allure report
+      - name: Upload Allure Report (Regression)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report-regression
+          path: allure-report-regression
