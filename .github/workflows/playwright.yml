@@ -29,10 +29,10 @@ jobs:
         if: always()
         run: npx allure generate allure-results --clean -o allure-report-smoke
 
-      # Upload raw Allure results (optional but useful)
+      # Upload raw Allure results
       - name: Upload Allure Results (Smoke)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results-smoke
           path: allure-results
@@ -40,7 +40,7 @@ jobs:
       # Upload HTML Allure report
       - name: Upload Allure Report (Smoke)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report-smoke
           path: allure-report-smoke
@@ -68,10 +68,10 @@ jobs:
         if: always()
         run: npx allure generate allure-results --clean -o allure-report-regression
 
-      # Upload raw Allure results (optional but useful)
+      # Upload raw Allure results
       - name: Upload Allure Results (Regression)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results-regression
           path: allure-results
@@ -79,7 +79,7 @@ jobs:
       # Upload HTML Allure report
       - name: Upload Allure Report (Regression)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report-regression
           path: allure-report-regression
