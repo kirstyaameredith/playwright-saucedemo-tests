@@ -56,6 +56,8 @@ All tests use the shared fixture file: tests/base.fixture.ts
 Allure reporting is supported.
 Generate and open the report: npm run report
 Optional script: "report": "allure generate allure-results --clean && allure open"
+## Live Allure Report
+[View the latest regression test report](https://kirstyaameredith.github.io/playwright-saucedemo-tests)
 
 ## Github Actions CI
 This project is ready for CI with separate smoke + regression jobs.
