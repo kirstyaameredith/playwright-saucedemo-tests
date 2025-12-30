@@ -12,7 +12,7 @@
     "allure:generate": "allure generate allure-results --clean",
     "allure:open": "allure open allure-report",
     "allure:report": "npm run allure:generate && npm run allure:open"
-},
+  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "allure-commandline": "^2.36.0",

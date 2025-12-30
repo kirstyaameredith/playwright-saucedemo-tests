@@ -15,10 +15,13 @@ export default defineConfig({
 
   reporter: [
     ['list'],
-    ['allure-playwright', {
-      outputFolder: 'allure-results',
-      detail: true,
-      suiteTitle: false
-    }]
+    [
+      'allure-playwright',
+      {
+        outputFolder: 'allure-results',   // Allure writes here
+        detail: true,
+        suiteTitle: false
+      }
+    ]
   ],
 });
