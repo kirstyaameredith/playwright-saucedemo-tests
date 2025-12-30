@@ -18,7 +18,7 @@ export default defineConfig({
     [
       'allure-playwright',
       {
-        outputFolder: 'allure-results',   // Allure writes here
+        outputFolder: process.env.ALLURE_RESULTS_DIR || 'allure-results',
         detail: true,
         suiteTitle: false
       }

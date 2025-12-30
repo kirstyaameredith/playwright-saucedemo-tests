@@ -21,16 +21,20 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 🧹 Clean Allure results folder
-      - name: Clean Allure results folder
-        run: rm -rf allure-results
+      # Set Allure output folder for smoke
+      - name: Set Allure output folder for smoke
+        run: echo "ALLURE_RESULTS_DIR=allure-results-smoke" >> $GITHUB_ENV
+
+      # Clean smoke results folder
+      - name: Clean smoke results folder
+        run: rm -rf allure-results-smoke
 
       # Restore smoke history (if exists)
       - name: Download Allure History (Smoke)
         uses: actions/download-artifact@v4
         with:
           name: allure-history-smoke
-          path: allure-results/history
+          path: allure-results-smoke/history
         continue-on-error: true
 
       - name: Run smoke tests
@@ -39,7 +43,7 @@ jobs:
       # Generate Allure HTML report for smoke
       - name: Generate Allure Report (Smoke)
         if: always()
-        run: npx allure generate allure-results --clean -o allure-report-smoke
+        run: npx allure generate allure-results-smoke --clean -o allure-report-smoke
 
       # Save smoke history
       - name: Upload Allure History (Smoke)
@@ -72,16 +76,20 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 🧹 Clean Allure results folder
-      - name: Clean Allure results folder
-        run: rm -rf allure-results
+      # Set Allure output folder for regression
+      - name: Set Allure output folder for regression
+        run: echo "ALLURE_RESULTS_DIR=allure-results-regression" >> $GITHUB_ENV
+
+      # Clean regression results folder
+      - name: Clean regression results folder
+        run: rm -rf allure-results-regression
 
       # Restore regression history (if exists)
       - name: Download Allure History (Regression)
         uses: actions/download-artifact@v4
         with:
           name: allure-history-regression
-          path: allure-results/history
+          path: allure-results-regression/history
         continue-on-error: true
 
       - name: Run regression tests
@@ -90,7 +98,7 @@ jobs:
       # Generate Allure HTML report for regression
       - name: Generate Allure Report (Regression)
         if: always()
-        run: npx allure generate allure-results --clean -o allure-report-regression
+        run: npx allure generate allure-results-regression --clean -o allure-report-regression
 
       # Save regression history
       - name: Upload Allure History (Regression)
