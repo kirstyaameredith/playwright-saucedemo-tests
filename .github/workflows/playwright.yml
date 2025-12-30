@@ -21,6 +21,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      # Restore Allure history BEFORE generating the report
+      - name: Download Allure History
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history
+          path: allure-results/history
+        continue-on-error: true
+
       - name: Run smoke tests
         run: npx playwright test --grep @smoke
 
@@ -28,6 +36,14 @@ jobs:
       - name: Generate Allure Report (Smoke)
         if: always()
         run: npx allure generate allure-results --clean -o allure-report-smoke
+
+      # Save Allure history AFTER generating the report
+      - name: Upload Allure History (Smoke)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history
+          path: allure-report-smoke/history
 
       # Upload raw Allure results
       - name: Upload Allure Results (Smoke)
@@ -60,6 +76,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      # Restore Allure history BEFORE generating the report
+      - name: Download Allure History
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history
+          path: allure-results/history
+        continue-on-error: true
+
       - name: Run regression tests
         run: npx playwright test --grep @regression
 
@@ -67,6 +91,14 @@ jobs:
       - name: Generate Allure Report (Regression)
         if: always()
         run: npx allure generate allure-results --clean -o allure-report-regression
+
+      # Save Allure history AFTER generating the report
+      - name: Upload Allure History (Regression)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history
+          path: allure-report-regression/history
 
       # Upload raw Allure results
       - name: Upload Allure Results (Regression)
