@@ -21,6 +21,10 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      # 🧹 Clean Allure results folder
+      - name: Clean Allure results folder
+        run: rm -rf allure-results
+
       # Restore smoke history (if exists)
       - name: Download Allure History (Smoke)
         uses: actions/download-artifact@v4
@@ -67,6 +71,10 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      # 🧹 Clean Allure results folder
+      - name: Clean Allure results folder
+        run: rm -rf allure-results
 
       # Restore regression history (if exists)
       - name: Download Allure History (Regression)
