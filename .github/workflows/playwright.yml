@@ -21,9 +21,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # STEP 1 — CLEAN OLD ALLURE DATA
-      - name: Clean old Allure data
-        run: rm -rf allure-results* allure-report*
+      # Restore regression history (if exists)
+      - name: Download Allure History (Regression)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history-regression
+          path: allure-results-smoke/history
+        continue-on-error: true
 
       - name: Run smoke tests
         run: npx playwright test --grep @smoke --output=allure-results-smoke
@@ -32,6 +36,14 @@ jobs:
       - name: Generate Allure Report (Smoke)
         if: always()
         run: npx allure generate allure-results-smoke --clean -o allure-report-smoke
+
+      # Save smoke history
+      - name: Upload Allure History (Smoke)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history-smoke
+          path: allure-report-smoke/history
 
       # Upload raw Allure results
       - name: Upload Allure Results (Smoke)
@@ -64,9 +76,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # STEP 1 — CLEAN OLD ALLURE DATA
-      - name: Clean old Allure data
-        run: rm -rf allure-results* allure-report*
+      # Restore regression history (if exists)
+      - name: Download Allure History (Regression)
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-history-regression
+          path: allure-results-regression/history
+        continue-on-error: true
 
       - name: Run regression tests
         run: npx playwright test --grep @regression --output=allure-results-regression
@@ -75,6 +91,14 @@ jobs:
       - name: Generate Allure Report (Regression)
         if: always()
         run: npx allure generate allure-results-regression --clean -o allure-report-regression
+
+      # Save regression history
+      - name: Upload Allure History (Regression)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history-regression
+          path: allure-report-regression/history
 
       # Upload raw Allure results
       - name: Upload Allure Results (Regression)
