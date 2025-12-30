@@ -125,6 +125,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Copy homepage into publish folder
+      - name: Copy homepage
+        run: |
+          mkdir -p publish
+          cp index.html publish/index.html
+
       # Download smoke report
       - name: Download Smoke Report
         uses: actions/download-artifact@v4
