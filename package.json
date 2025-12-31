@@ -6,17 +6,24 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "codegen": "npx playwright codegen",
-    "test:smoke": "npx playwright test --grep \"@smoke\"",
-    "test:regression": "npx playwright test --grep \"@regression\"",
+    "smoke": "dotenv -e .env.smoke -- npx playwright test --grep \"@smoke\"",
+    "report:smoke": "allure generate allure-results-smoke --clean -o allure-report-smoke",
+    "open:smoke": "allure open allure-report-smoke",
+    "regression": "dotenv -e .env.regression -- npx playwright test --grep \"@regression\"",
+    "report:regression": "allure generate allure-results-regression --clean -o allure-report-regression",
+    "open:regression": "allure open allure-report-regression",
     "test:ci": "npx playwright test --reporter=line",
-    "allure:generate": "allure generate allure-results --clean",
-    "allure:open": "allure open allure-report",
-    "allure:report": "npm run allure:generate && npm run allure:open"
+    "deploy:smoke": "powershell Copy-Item -Path allure-report-smoke\\* -Destination docs\\smoke -Recurse -Force",
+    "deploy:regression": "powershell Copy-Item -Path allure-report-regression\\* -Destination docs\\regression -Recurse -Force"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^25.0.3",
     "allure-commandline": "^2.36.0",
-    "allure-playwright": "^3.4.3"
+    "allure-playwright": "^3.4.3",
+    "cross-env": "^10.1.0",
+    "cross-env-shell": "^7.0.3",
+    "dotenv-cli": "^11.0.0",
+    "ts-node": "^10.9.2"
   }
 }
