@@ -29,6 +29,10 @@ jobs:
       - name: Clean smoke results folder
         run: rm -rf allure-results-smoke
 
+      # Ensure history folder exists
+      - name: Create smoke history folder
+        run: mkdir -p allure-results-smoke/history
+
       # Restore smoke history (if exists)
       - name: Download Allure History (Smoke)
         uses: actions/download-artifact@v4
@@ -84,6 +88,10 @@ jobs:
       - name: Clean regression results folder
         run: rm -rf allure-results-regression
 
+      # Ensure history folder exists
+      - name: Create regression history folder
+        run: mkdir -p allure-results-regression/history
+
       # Restore regression history (if exists)
       - name: Download Allure History (Regression)
         uses: actions/download-artifact@v4
@@ -129,7 +137,7 @@ jobs:
       - name: Copy homepage
         run: |
           mkdir -p publish
-          cp index.html publish/index.html
+          cp docs/index.html publish/index.html
 
       # Download smoke report
       - name: Download Smoke Report
