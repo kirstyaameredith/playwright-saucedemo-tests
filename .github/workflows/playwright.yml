@@ -38,18 +38,22 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-history-smoke
-          path: allure-results-smoke/history
+          path: ./allure-history-smoke
         continue-on-error: true
 
       # Ensure folder still exists even if download failed
       - name: Ensure smoke history folder exists after download
         run: mkdir -p allure-results-smoke/history
 
-         # ✅ Inject previous history into results folder
+      # ✅ Inject previous history into results folder (robust to extraction layout)
       - name: Inject previous history into results folder
         run: |
-          if [ -d allure-history-smoke/history ]; then
-            cp -r allure-history-smoke/history/* allure-results-smoke/history/ 2>/dev/null || true
+          # If the artifact was downloaded with a nested `history` folder
+          if [ -d "./allure-history-smoke/history" ]; then
+            cp -r ./allure-history-smoke/history/* ./allure-results-smoke/history/ 2>/dev/null || true
+          # Or, if the artifact extracted files directly into ./allure-history-smoke
+          elif [ -d "./allure-history-smoke" ]; then
+            cp -r ./allure-history-smoke/* ./allure-results-smoke/history/ 2>/dev/null || true
           fi
 
       - name: Run smoke tests
@@ -67,6 +71,7 @@ jobs:
         with:
           name: allure-history-smoke
           path: allure-report-smoke/history
+          retention-days: 30
 
       # Upload HTML Allure report
       - name: Upload Allure Report (Smoke)
@@ -75,6 +80,7 @@ jobs:
         with:
           name: allure-report-smoke
           path: allure-report-smoke
+          retention-days: 30
 
   regression:
     name: Regression Tests
@@ -108,18 +114,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-history-regression
-          path: allure-results-regression/history
+          path: ./allure-history-regression
         continue-on-error: true
 
       # Ensure folder still exists even if download failed
       - name: Ensure regression history folder exists after download
         run: mkdir -p allure-results-regression/history
        
-            # ✅ Inject previous history into results folder
+      # ✅ Inject previous history into results folder (robust to extraction layout)
       - name: Inject previous history into results folder
         run: |
-          if [ -d allure-history-regression/history ]; then
-            cp -r allure-history-regression/history/* allure-results-regression/history/ 2>/dev/null || true
+          if [ -d "./allure-history-regression/history" ]; then
+            cp -r ./allure-history-regression/history/* ./allure-results-regression/history/ 2>/dev/null || true
+          elif [ -d "./allure-history-regression" ]; then
+            cp -r ./allure-history-regression/* ./allure-results-regression/history/ 2>/dev/null || true
           fi
 
       - name: Run regression tests
@@ -137,6 +145,7 @@ jobs:
         with:
           name: allure-history-regression
           path: allure-report-regression/history
+          retention-days: 30
 
       # Upload HTML Allure report
       - name: Upload Allure Report (Regression)
@@ -145,6 +154,7 @@ jobs:
         with:
           name: allure-report-regression
           path: allure-report-regression
+          retention-days: 30
 
   publish-report:
     name: Publish Allure Reports to GitHub Pages
