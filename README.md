@@ -4,17 +4,18 @@
 ![Allure](https://img.shields.io/badge/Allure-Reporting-ff69b4?logo=allure)
 ![Node](https://img.shields.io/badge/Node.js-latest-339933?logo=node.js)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-0A0FFF?logo=github)
 ![Smoke Tests](https://img.shields.io/badge/Tests-Smoke-green)
 ![Regression Tests](https://img.shields.io/badge/Tests-Regression-blue)
 ![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
 
-Playwright Automation Framework — SauceDemo
+# Playwright Automation Framework — SauceDemo
 
 A modern, scalable UI automation framework built with Playwright, TypeScript, and a clean Page Object Model (POM) architecture. This project demonstrates real‑world SDET engineering practices including fixtures, tagging, CI pipelines, and professional Allure reporting published to GitHub Pages.  
 
-🚀 Key Features
-# Framework Architecture
+## 🚀 Key Features
+### Framework Architecture
 - Page Object Model (POM) with reusable components
 - Custom Playwright fixtures for authenticated and unauthenticated flows
 - Clean separation of smoke and regression test suites
@@ -22,7 +23,7 @@ A modern, scalable UI automation framework built with Playwright, TypeScript, an
 - Tag‑based execution (@smoke, @regression)
 - TypeScript for maintainability and type‑safety
 
-# Reporting & CI/CD
+### Reporting & CI/CD
 Fully automated Allure reporting for both suites
 
 Separate result folders:
@@ -39,7 +40,7 @@ GitHub Actions pipeline that:
 - Publishes both reports to GitHub Pages
 - Uses a custom homepage (docs/index.html)
 
-📁 Project Structure
+## 📁 Project Structure
 playwright-saucedemo-tests/
 │
 ├── .github/workflows/
@@ -69,7 +70,7 @@ playwright-saucedemo-tests/
 ├── package.json
 └── README.md
 
-🧪 Running Tests Locally
+## 🧪 Running Tests Locally
 Install dependencies: npm install
 Run all tests: npx playwright test
 Run the full test suite: npm test
@@ -77,7 +78,7 @@ Run tests in headed mode: npm run test:headed
 Run smoke suite: npx playwright test --grep @smoke
 Run regression suite: npx playwright test --grep @regression
 
-📊 Generating Allure Reports Locally
+## 📊 Generating Allure Reports Locally
 Smoke report:
 ALLURE_RESULTS_DIR=allure-results-smoke npx playwright test --grep @smoke
 npx allure generate allure-results-smoke --clean -o allure-report-smoke
@@ -88,10 +89,10 @@ ALLURE_RESULTS_DIR=allure-results-regression npx playwright test --grep @regress
 npx allure generate allure-results-regression --clean -o allure-report-regression
 npx allure open allure-report-regression
 
-⚙️ GitHub Actions CI/CD Pipeline
+## ⚙️ GitHub Actions CI/CD Pipeline
 The pipeline consists of three jobs:
 
-# 1. Smoke Tests
+###  1. Smoke Tests
 - Runs on every push & PR to main
 - Cleans and prepares allure-results-smoke
 - Restores Allure history
@@ -101,7 +102,7 @@ Uploads:
 - allure-history-smoke
 - allure-report-smoke
 
-# 2. Regression Tests
+### 2. Regression Tests
 - Runs after smoke
 - Cleans and prepares allure-results-regression
 - Restores Allure history
@@ -111,7 +112,7 @@ Uploads:
 - allure-history-regression
 - allure-report-regression
 
-# 2. Publish Reports
+### 3. Publish Reports
 - Runs after regression
 - Copies custom homepage from docs/index.html
 Downloads both reports into:
@@ -119,7 +120,7 @@ Downloads both reports into:
 - publish/regression
 Deploys everything to GitHub Pages
 
-🌐 Published Allure Reports
+## 🌐 Published Allure Reports
 Your GitHub Pages site hosts:
 🔥Smoke Report: /smoke/
 🧠Regression Report: /regression/
@@ -127,7 +128,7 @@ Your GitHub Pages site hosts:
 
 (Replace with your actual GitHub Pages URL once deployed.)
 
-🔐 Authentication Fixture
+## 🔐 Authentication Fixture
 The framework includes a reusable login fixture that:
 - Logs in once
 - Saves session state
@@ -135,20 +136,20 @@ The framework includes a reusable login fixture that:
 - Speeds up execution
 - Mirrors enterprise‑level test design
 
-🧱 Tech Stack
+## 🧱 Tech Stack
 TypeScript
 Playwright
 Allure
 GitHub Actions
 POM + Fixtures + Utilities
 
-🎯 Why This Project Is SDET‑Ready
+## 🎯 Why This Project Is SDET‑Ready
 This framework demonstrates:
 - Real CI/CD pipelines with multi‑suite orchestration
 - Professional Allure reporting with history
 - Clean, scalable automation architecture
 - sStrong engineering discipline
 
-👩‍💻 Author
+## 👩‍💻 Author
 Kirsty Meredith QA Engineer/Manager | Over 16+ years QA, PM experience | MSc | PSM 1 | Future SDET 
 Newtwownards, Northern Ireland
