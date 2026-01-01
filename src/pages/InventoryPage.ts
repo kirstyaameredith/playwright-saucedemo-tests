@@ -6,6 +6,9 @@ export class InventoryPage extends BasePage {
   private sortDropdown = this.page.locator('select[data-test="product-sort-container"]');
   private productNames = this.page.locator('.inventory_item_name');
   private productPrices = this.page.locator('.inventory_item_price');
+  private cartBadge = this.page.locator('.shopping_cart_badge');
+  private cartIcon = this.page.locator('.shopping_cart_link');
+
 
   constructor(page: Page) {
     super(page);
@@ -57,4 +60,24 @@ export class InventoryPage extends BasePage {
     const prices = await this.getPrices();
     expect(prices).toEqual([...prices].sort((a, b) => b - a));
   }
+
+  async addItemToCart(productName: string) {
+  await allure.step(`Add ${productName} to cart`, async () => {
+    const selector = `[data-test="add-to-cart-${productName
+      .toLowerCase()
+      .replace(/ /g, '-') }"]`;
+
+    await this.page.click(selector);
+  });
+}
+
+async openCart() {
+  await allure.step('Open cart', async () => {
+    await this.cartIcon.click();
+  });
+}
+
+public get cartBadgeLocator() {
+  return this.cartBadge;
+ }
 }
