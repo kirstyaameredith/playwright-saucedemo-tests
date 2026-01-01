@@ -33,25 +33,36 @@ jobs:
       - name: Create smoke history folder
         run: mkdir -p allure-results-smoke/history
 
-      # Restore smoke history (if exists)
-      - name: Download Allure History (Smoke)
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-history-smoke
-          path: ./allure-history-smoke
-        continue-on-error: true
+      # Restore smoke history (if exists) — use the REST API to avoid annotations if not found
+      - name: Download Allure History (Smoke) — conditional via API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARTIFACT_NAME: "allure-history-smoke"
+        run: |
+          set -e
+          echo "Looking for artifact named: $ARTIFACT_NAME"
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100"
+          resp="$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$API_URL")"
+          ARTIFACT_ID=$(echo "$resp" | python3 -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "No artifact named $ARTIFACT_NAME found — skipping download"
+            exit 0
+          fi
+          echo "Found artifact id: $ARTIFACT_ID — downloading"
+          curl -sSL -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" -o artifact.zip
+          mkdir -p ./allure-history-smoke
+          unzip -q artifact.zip -d ./allure-history-smoke || true
+          rm -f artifact.zip
 
       # Ensure folder still exists even if download failed
       - name: Ensure smoke history folder exists after download
         run: mkdir -p allure-results-smoke/history
 
-      # ✅ Inject previous history into results folder (robust to extraction layout)
+      # Inject previous history into results folder (robust to extraction layout)
       - name: Inject previous history into results folder
         run: |
-          # If the artifact was downloaded with a nested `history` folder
           if [ -d "./allure-history-smoke/history" ]; then
             cp -r ./allure-history-smoke/history/* ./allure-results-smoke/history/ 2>/dev/null || true
-          # Or, if the artifact extracted files directly into ./allure-history-smoke
           elif [ -d "./allure-history-smoke" ]; then
             cp -r ./allure-history-smoke/* ./allure-results-smoke/history/ 2>/dev/null || true
           fi
@@ -109,19 +120,32 @@ jobs:
       - name: Create regression history folder
         run: mkdir -p allure-results-regression/history
 
-      # Restore regression history (if exists)
-      - name: Download Allure History (Regression)
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-history-regression
-          path: ./allure-history-regression
-        continue-on-error: true
+      # Restore regression history (if exists) — use the REST API to avoid annotations if not found
+      - name: Download Allure History (Regression) — conditional via API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARTIFACT_NAME: "allure-history-regression"
+        run: |
+          set -e
+          echo "Looking for artifact named: $ARTIFACT_NAME"
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100"
+          resp="$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$API_URL")"
+          ARTIFACT_ID=$(echo "$resp" | python3 -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "No artifact named $ARTIFACT_NAME found — skipping download"
+            exit 0
+          fi
+          echo "Found artifact id: $ARTIFACT_ID — downloading"
+          curl -sSL -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" -o artifact.zip
+          mkdir -p ./allure-history-regression
+          unzip -q artifact.zip -d ./allure-history-regression || true
+          rm -f artifact.zip
 
       # Ensure folder still exists even if download failed
       - name: Ensure regression history folder exists after download
         run: mkdir -p allure-results-regression/history
        
-      # ✅ Inject previous history into results folder (robust to extraction layout)
+      # Inject previous history into results folder (robust to extraction layout)
       - name: Inject previous history into results folder
         run: |
           if [ -d "./allure-history-regression/history" ]; then
