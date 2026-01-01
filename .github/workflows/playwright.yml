@@ -45,6 +45,13 @@ jobs:
       - name: Ensure smoke history folder exists after download
         run: mkdir -p allure-results-smoke/history
 
+         # ✅ Inject previous history into results folder
+      - name: Inject previous history into results folder
+        run: |
+         if [ -d allure-results-smoke/history ]; then
+          cp -r allure-results-smoke/history allure-results-smoke/
+         fi
+
       - name: Run smoke tests
         run: npx playwright test --grep '@smoke'
 
@@ -107,6 +114,13 @@ jobs:
       # Ensure folder still exists even if download failed
       - name: Ensure regression history folder exists after download
         run: mkdir -p allure-results-regression/history
+       
+        # ✅ Inject previous history into results folder
+      - name: Inject previous history into results folder
+        run: |
+         if [ -d allure-results-regression/history ]; then
+          cp -r allure-results-regression/history allure-results-regression/
+         fi
 
       - name: Run regression tests
         run: npx playwright test --grep '@regression'
