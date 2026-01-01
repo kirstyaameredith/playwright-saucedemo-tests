@@ -42,8 +42,8 @@ jobs:
           set -e
           echo "Looking for artifact named: $ARTIFACT_NAME"
           API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100"
-          resp="$(curl -sSL -H \"Authorization: token $GITHUB_TOKEN\" \"$API_URL\")"
-          ARTIFACT_ID=$(echo "$resp" | python -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
+          resp="$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$API_URL")"
+          ARTIFACT_ID=$(echo "$resp" | python3 -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
           if [ -z "$ARTIFACT_ID" ]; then
             echo "No artifact named $ARTIFACT_NAME found — skipping download"
             exit 0
@@ -53,7 +53,6 @@ jobs:
           mkdir -p ./allure-history-smoke
           unzip -q artifact.zip -d ./allure-history-smoke || true
           rm -f artifact.zip
-        # step will exit 0 when artifact not found, so no annotation
 
       # Ensure folder still exists even if download failed
       - name: Ensure smoke history folder exists after download
@@ -130,8 +129,8 @@ jobs:
           set -e
           echo "Looking for artifact named: $ARTIFACT_NAME"
           API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts?per_page=100"
-          resp="$(curl -sSL -H \"Authorization: token $GITHUB_TOKEN\" \"$API_URL\")"
-          ARTIFACT_ID=$(echo "$resp" | python -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
+          resp="$(curl -sSL -H "Authorization: token $GITHUB_TOKEN" "$API_URL")"
+          ARTIFACT_ID=$(echo "$resp" | python3 -c "import sys,os,json; data=json.load(sys.stdin); name=os.environ['ARTIFACT_NAME']; print(next((str(x['id']) for x in data.get('artifacts',[]) if x.get('name')==name), ''))")
           if [ -z "$ARTIFACT_ID" ]; then
             echo "No artifact named $ARTIFACT_NAME found — skipping download"
             exit 0
