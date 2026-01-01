@@ -41,7 +41,7 @@ GitHub Actions pipeline that:
 - Uses a custom homepage (docs/index.html)
 
 ## 📁 Project Structure
-playwright-saucedemo-tests/
+```playwright-saucedemo-tests/
 │
 ├── .github/workflows/
 │   └── playwright.yml            # CI pipeline: smoke → regression → publish
@@ -69,7 +69,7 @@ playwright-saucedemo-tests/
 ├── playwright.config.ts
 ├── package.json
 └── README.md
-
+```
 ## 🧪 Running Tests Locally
 Install dependencies: npm install
 Run all tests: npx playwright test
