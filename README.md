@@ -79,15 +79,15 @@ Run smoke suite: npx playwright test --grep @smoke
 Run regression suite: npx playwright test --grep @regression
 
 ## 📊 Generating Allure Reports Locally
-Smoke report:
-ALLURE_RESULTS_DIR=allure-results-smoke npx playwright test --grep @smoke
-npx allure generate allure-results-smoke --clean -o allure-report-smoke
-npx allure open allure-report-smoke
+### Smoke report:
+- ALLURE_RESULTS_DIR=allure-results-smoke npx playwright test --grep @smoke
+- npx allure generate allure-results-smoke --clean -o allure-report-smoke
+- npx allure open allure-report-smoke
 
-Regression report: 
-ALLURE_RESULTS_DIR=allure-results-regression npx playwright test --grep @regression
-npx allure generate allure-results-regression --clean -o allure-report-regression
-npx allure open allure-report-regression
+### Regression report: 
+- ALLURE_RESULTS_DIR=allure-results-regression npx playwright test --grep @regression
+- npx allure generate allure-results-regression --clean -o allure-report-regression
+- npx allure open allure-report-regression
 
 ## ⚙️ GitHub Actions CI/CD Pipeline
 The pipeline consists of three jobs:
@@ -151,5 +151,5 @@ This framework demonstrates:
 - sStrong engineering discipline
 
 ## 👩‍💻 Author
-Kirsty Meredith QA Engineer/Manager | Over 16+ years QA, PM experience | MSc | PSM 1 | Future SDET 
-Newtwownards, Northern Ireland
+### Kirsty Meredith QA Engineer/Manager | Over 16+ years QA, PM experience | MSc | PSM 1 | Future SDET 
+### Newtwownards, Northern Ireland
