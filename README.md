@@ -1,80 +1,143 @@
-Playwright Automation Framework (SauceDemo)
+Playwright Automation Framework — SauceDemo
 
-A clean, modern, professional Playwright automation framework built with:
-- ✅ Page Object Model (POM)
-- ✅ BasePage inheritance
-- ✅ Shared fixtures (base.fixture.ts)
-- ✅ Auto‑login fixture
-- ✅ Tagged test suites (@smoke, @regression)
-- ✅ Allure reporting support
-- ✅ Ready for GitHub Actions CI
-- ✅ TypeScript + strict mode
-- ✅ Clean folder structure with barrel exports
+A modern, scalable UI automation framework built with Playwright, TypeScript, and a clean Page Object Model (POM) architecture. This project demonstrates real‑world SDET engineering practices including fixtures, tagging, CI pipelines, and professional Allure reporting published to GitHub Pages.  
 
-## Folder Structure
-project-root/
+🚀 Key Features
+# Framework Architecture
+- Page Object Model (POM) with reusable components
+- Custom Playwright fixtures for authenticated and unauthenticated flows
+- Clean separation of smoke and regression test suites
+- Reusable utilities and selectors
+- Tag‑based execution (@smoke, @regression)
+- TypeScript for maintainability and type‑safety
+
+# Reporting & CI/CD
+Fully automated Allure reporting for both suites
+
+Separate result folders:
+- allure-results-smoke
+- allure-results-regression
+
+Separate HTML reports:
+- allure-report-smoke
+- allure-report-regression
+
+GitHub Actions pipeline that:
+- Runs smoke → then regression
+- Preserves Allure history
+- Publishes both reports to GitHub Pages
+- Uses a custom homepage (docs/index.html)
+
+📁 Project Structure
+playwright-saucedemo-tests/
+│
+├── .github/workflows/
+│   └── playwright.yml            # CI pipeline: smoke → regression → publish
 │
 ├── src/
-│   ├── pages/
-│   │   ├── BasePage.ts
-│   │   ├── LoginPage.ts
-│   │   ├── InventoryPage.ts
-│   │   ├── CartPage.ts
-│   │   ├── CheckoutPage.ts
-│   │   └── index.ts
-│   │
-│   └── utils/
-│       └── users.ts
+│   ├── fixtures/                 # Custom Playwright fixtures
+│   ├── pages/                    # Page Object Model classes
+│   ├── utils/                    # Helpers & utilities
 │
 ├── tests/
-│   ├── base.fixture.ts
-│   ├── login.spec.ts
-│   ├── sorting.spec.ts
-│   ├── cart.spec.ts
-│   └── checkout.spec.ts
+│   ├── smoke/                    # @smoke tests
+│   ├── regression/               # @regression tests
 │
+├── allure-results-smoke/        # Runtime results for smoke suite
+├── allure-results-regression/   # Runtime results for regression suite
+├── allure-report-smoke/         # Generated HTML report for smoke
+├── allure-report-regression/    # Generated HTML report for regression
+│
+├── docs/                         # GitHub Pages publishing folder
+│   ├── index.html                # Custom homepage
+│   ├── smoke/                    # Published smoke report
+│   └── regression/              # Published regression report
+│
+├── .nojekyll                     # Ensures GitHub Pages serves folders correctly
 ├── playwright.config.ts
 ├── package.json
-└── tsconfig.json
+└── README.md
 
-## Getting Started
+🧪 Running Tests Locally
 Install dependencies: npm install
+Run all tests: npx playwright test
 Run the full test suite: npm test
 Run tests in headed mode: npm run test:headed
+Run smoke suite: npx playwright test --grep @smoke
+Run regression suite: npx playwright test --grep @regression
 
-## Tagged Test Suites
+📊 Generating Allure Reports Locally
+Smoke report:
+ALLURE_RESULTS_DIR=allure-results-smoke npx playwright test --grep @smoke
+npx allure generate allure-results-smoke --clean -o allure-report-smoke
+npx allure open allure-report-smoke
 
-Smoke tests: npm run test:smoke
-Regression tests: npm run test:regression
-Tags are added directly in test titles, e.g.: test('@smoke Login with valid credentials', async () => { ... });
+Regression report: 
+ALLURE_RESULTS_DIR=allure-results-regression npx playwright test --grep @regression
+npx allure generate allure-results-regression --clean -o allure-report-regression
+npx allure open allure-report-regression
 
-## Fixtures
+⚙️ GitHub Actions CI/CD Pipeline
+The pipeline consists of three jobs:
 
-All tests use the shared fixture file: tests/base.fixture.ts 
+# 1. Smoke Tests
+- Runs on every push & PR to main
+- Cleans and prepares allure-results-smoke
+- Restores Allure history
+- Runs @smoke tests
+- Generates allure-report-smoke
+Uploads:
+- allure-history-smoke
+- allure-report-smoke
 
-## Reporting
-Allure reporting is supported.
-Generate and open the report: npm run report
-Optional script: "report": "allure generate allure-results --clean && allure open"
-## Live Allure Report
-[View the latest regression test report](https://kirstyaameredith.github.io/playwright-saucedemo-tests)
+# 2. Regression Tests
+- Runs after smoke
+- Cleans and prepares allure-results-regression
+- Restores Allure history
+- Runs @regression tests
+- Generates allure-report-regression
+Uploads:
+- allure-history-regression
+- allure-report-regression
 
-## Github Actions CI
-This project is ready for CI with separate smoke + regression jobs.
-Example workflow: .github/workflows/playwright.yml
+# 2. Publish Reports
+- Runs after regression
+- Copies custom homepage from docs/index.html
+Downloads both reports into:
+- publish/smoke
+- publish/regression
+Deploys everything to GitHub Pages
 
-Yaml
-- name: Run smoke tests
-  run: npm run test:smoke
+🌐 Published Allure Reports
+Your GitHub Pages site hosts:
+🔥Smoke Report: /smoke/
+🧠Regression Report: /regression/
+🏠Custom Homepage: /index.html
 
-- name: Run regression tests
-  run: npm run test:regression
+(Replace with your actual GitHub Pages URL once deployed.)
 
-## Tech Stack
-- Playwright
-- TypeScript
-- Allure
-- GitHub Actions
-- Page Object Model
-- Fixtures
-- Tagged test suites
+🔐 Authentication Fixture
+The framework includes a reusable login fixture that:
+- Logs in once
+- Saves session state
+- Reuses it across tests
+- Speeds up execution
+- Mirrors enterprise‑level test design
+
+🧱 Tech Stack
+TypeScript
+Playwright
+Allure
+GitHub Actions
+POM + Fixtures + Utilities
+
+🎯 Why This Project Is SDET‑Ready
+This framework demonstrates:
+- Real CI/CD pipelines with multi‑suite orchestration
+- Professional Allure reporting with history
+- Clean, scalable automation architecture
+- sStrong engineering discipline
+
+👩‍💻 Author
+Kirsty Meredith QA Engineer/Manager | Over 16+ years QA, PM experience | MSc | PSM 1 | Future SDET 
+Newtwownards, Northern Ireland
