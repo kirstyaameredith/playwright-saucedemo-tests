@@ -1,3 +1,14 @@
+![CI](https://github.com/kirstyaameredith/playwright-saucedemo-tests/actions/workflows/playwright.yml/badge.svg)
+![Playwright](https://img.shields.io/badge/Playwright-latest-blue?logo=playwright)
+![TypeScript](https://img.shields.io/badge/TypeScript-latest-3178C6?logo=typescript)
+![Allure](https://img.shields.io/badge/Allure-Reporting-ff69b4?logo=allure)
+![Node](https://img.shields.io/badge/Node.js-latest-339933?logo=node.js)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deployed-0A0FFF?logo=github)
+![Smoke Tests](https://img.shields.io/badge/Tests-Smoke-green)
+![Regression Tests](https://img.shields.io/badge/Tests-Regression-blue)
+![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)
+
 Playwright Automation Framework — SauceDemo
 
 A modern, scalable UI automation framework built with Playwright, TypeScript, and a clean Page Object Model (POM) architecture. This project demonstrates real‑world SDET engineering practices including fixtures, tagging, CI pipelines, and professional Allure reporting published to GitHub Pages.  
