@@ -41,6 +41,10 @@ jobs:
           path: allure-results-smoke/history
         continue-on-error: true
 
+      # Ensure folder still exists even if download failed
+      - name: Ensure smoke history folder exists after download
+        run: mkdir -p allure-results-smoke/history
+
       - name: Run smoke tests
         run: npx playwright test --grep '@smoke'
 
@@ -99,6 +103,10 @@ jobs:
           name: allure-history-regression
           path: allure-results-regression/history
         continue-on-error: true
+
+      # Ensure folder still exists even if download failed
+      - name: Ensure regression history folder exists after download
+        run: mkdir -p allure-results-regression/history
 
       - name: Run regression tests
         run: npx playwright test --grep '@regression'
