@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","3483","@smoke Complete checkout flow","","2025-12-31","passed","2025-12-31","","","",""
-"","3581","@smoke Sort A → Z","","2025-12-31","passed","2025-12-31","","","",""
-"","3666","@smoke Login with valid credentials","","2025-12-31","passed","2025-12-31","","","",""
-"","3494","@smoke Cart icon shows item count","","2025-12-31","passed","2025-12-31","","","",""

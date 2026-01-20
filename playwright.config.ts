@@ -1,8 +1,5 @@
 import { defineConfig } from '@playwright/test';
 
-const allureOutput = process.env.ALLURE_RESULTS_DIR;
-console.log('✅ Allure output folder from env:', allureOutput);
-
 export default defineConfig({
   testDir: './tests',
   timeout: 30000,
@@ -16,12 +13,5 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  reporter: [
-    ['list'],
-    ['allure-playwright', {
-      resultsDir: allureOutput || 'allure-results',
-      detail: true,
-      suiteTitle: false
-    }]
-  ],
+  reporter: [['list']],
 });
