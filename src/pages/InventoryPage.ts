@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { allure } from 'allure-playwright';
+import { allure } from './allure';
 
 export class InventoryPage extends BasePage {
   private sortDropdown = this.page.locator('select[data-test="product-sort-container"]');

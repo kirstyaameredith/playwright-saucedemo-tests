@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { allure } from 'allure-playwright';
+import { allure } from './allure';
 
 export class LoginPage extends BasePage {
   private usernameInput = this.page.locator('#user-name');

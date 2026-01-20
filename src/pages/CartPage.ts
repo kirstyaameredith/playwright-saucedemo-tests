@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { allure } from 'allure-playwright';
+import { allure } from './allure';
 
 export class CartPage extends BasePage {
   private itemNames = this.page.locator('.inventory_item_name');

@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { allure } from 'allure-playwright';
+import { allure } from './allure';
 
 export class CheckoutPage extends BasePage {
   private firstName = this.page.locator('[data-test="firstName"]');
